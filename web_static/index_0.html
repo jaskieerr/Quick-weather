@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/web_static/styles/styles.css">
-    <title>Quick Weather</title>
+<link rel="stylesheet" href="/web_static/styles/styles.css">
 </head>
 <body>
     <header class="header">
         <div class="logo">Quick Weather</div>
         <a href="#" class="login_btn">Log In</a>
     </header>
+    
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search locations...">
+        <div class="dropdown">
+            <!-- Dropdown items will be populated here -->
+        </div>
+    </div>
+
+    <div class="cities-grid">
+        <!-- City cards will be populated here -->
+    </div>
+    <script src="scripts/scripts.js"></script>
 </body>
 </html>
