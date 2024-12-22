@@ -91,3 +91,50 @@ document.addEventListener('click', (e) => {
 
 // Initialize the city cards
 populateCityCards();
+
+// Modal functionality
+const loginBtn = document.querySelector('.login_btn');
+const modalOverlay = document.querySelector('.modal-overlay');
+const modalClose = document.querySelector('.modal-close');
+const tabs = document.querySelectorAll('.tab');
+const tabContents = document.querySelectorAll('.tab-content');
+
+// Open modal
+loginBtn.addEventListener('click', () => {
+    modalOverlay.classList.add('active');
+});
+
+// Close modal when clicking outside
+modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('active');
+    }
+});
+
+// Close modal with X button
+modalClose.addEventListener('click', () => {
+    modalOverlay.classList.remove('active');
+});
+
+// Tab switching
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Remove active class from all tabs and contents
+        tabs.forEach(t => t.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        // Add active class to clicked tab and corresponding content
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+});
+
+// Prevent form submission (for demo)
+const forms = document.querySelectorAll('form');
+forms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Add your form submission logic here
+        alert('Form submitted! (Demo only)');
+    });
+});
