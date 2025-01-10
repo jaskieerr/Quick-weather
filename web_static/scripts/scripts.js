@@ -1,6 +1,6 @@
 // API configuration with the correct endpoint
 const API_KEY = '232327a71eca66cfc681f5110c0c7709';
-        
+
 // Default cities to show on the dashboard
 const defaultCities = [
     "New York", "London", "Paris", "Tokyo", 
@@ -20,7 +20,6 @@ function formatWindSpeed(speed) {
 // Function to fetch weather data for a single city
 async function fetchCityWeather(city) {
     try {
-        // Using the provided API endpoint
         const response = await fetch(
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
         );
@@ -32,6 +31,24 @@ async function fetchCityWeather(city) {
         return await response.json();
     } catch (error) {
         console.error(`Error fetching data for ${city}:`, error);
+        return null;
+    }
+}
+
+// Function to fetch weather data for coordinates
+async function fetchWeatherByCoords(lat, lon) {
+    try {
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+        );
+        
+        if (!response.ok) {
+            throw new Error('Weather data not found for your location');
+        }
+        
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching data for your location:', error);
         return null;
     }
 }
@@ -99,10 +116,28 @@ async function populateCityCards() {
             }
         });
 
-        // Update main location with first valid city data
-        const firstValidData = weatherDataResults.find(data => data !== null);
-        if (firstValidData) {
-            updateMainLocation(firstValidData);
+        // Get user's current location and update main location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const { latitude, longitude } = position.coords;
+                const userWeatherData = await fetchWeatherByCoords(latitude, longitude);
+                if (userWeatherData) {
+                    updateMainLocation(userWeatherData);
+                }
+            }, (error) => {
+                console.error('Error getting user location:', error);
+                // Fallback to the first valid city data if location access is denied
+                const firstValidData = weatherDataResults.find(data => data !== null);
+                if (firstValidData) {
+                    updateMainLocation(firstValidData);
+                }
+            });
+        } else {
+            // Fallback to the first valid city data if geolocation is not supported
+            const firstValidData = weatherDataResults.find(data => data !== null);
+            if (firstValidData) {
+                updateMainLocation(firstValidData);
+            }
         }
     } catch (error) {
         console.error('Error populating city cards:', error);
@@ -147,32 +182,32 @@ async function handleSearch(searchValue) {
                     </div>
                     <div class="city-details">
                         <span class="city-name">${weatherData.name}</span>
-                                                        <span class="city-weather">${weatherData.weather[0].description}</span>
-                                                    </div>
-                                                </div>
-                                            `;
-                                            dropdown.appendChild(div);
-                                            dropdown.classList.add('active');
-                                        } else {
-                                            dropdown.classList.remove('active');
-                                        }
-                                    } catch (error) {
-                                        console.error('Error fetching search data:', error);
-                                        dropdown.classList.remove('active');
-                                    }
-                                }
-                        
-                                const searchInput = document.querySelector('.search-input');
-                                const dropdown = document.querySelector('.dropdown');
-                        
-                                searchInput.addEventListener('input', debounce((event) => {
-                                    handleSearch(event.target.value);
-                                }, 500));
-                        
-                                // Initial population of city cards
-                                populateCityCards();
+                        <span class="city-weather">${weatherData.weather[0].description}</span>
+                    </div>
+                </div>
+            `;
+            dropdown.appendChild(div);
+            dropdown.classList.add('active');
+        } else {
+            dropdown.classList.remove('active');
+        }
+    } catch (error) {
+        console.error('Error fetching search data:', error);
+        dropdown.classList.remove('active');
+    }
+}
 
-                                // Modal functionality
+const searchInput = document.querySelector('.search-input');
+const dropdown = document.querySelector('.dropdown');
+
+searchInput.addEventListener('input', debounce((event) => {
+    handleSearch(event.target.value);
+}, 500));
+
+// Initial population of city cards
+populateCityCards();
+
+// Modal functionality
 const loginBtn = document.querySelector('.login_btn');
 const modalOverlay = document.querySelector('.modal-overlay');
 const modalClose = document.querySelector('.modal-close');
