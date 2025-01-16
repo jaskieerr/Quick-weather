@@ -4,10 +4,14 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template("index_0.html")
+    return render_template("homepage.html")
 
 @app.route('/login')
 def login():
+    pass
+
+@app.route('/signup')
+def signup():
     pass
 
 if __name__ == '__main__':
