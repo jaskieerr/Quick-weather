@@ -310,10 +310,10 @@ body {
 }
 
 /* Account page container */
-.account-content {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 0 20px;
+#account-content {
+    max-width: auto;
+    margin: auto;
+    padding: 0;
     display: none;
 }
 
