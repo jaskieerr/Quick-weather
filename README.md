@@ -1,4 +1,4 @@
-Here is the updated, properly formatted README for your repository:
+Based on the gathered information, here is a more detailed and professional README file for your Quick-weather project, including specifics about the backend, load balancer, firewall, and database:
 
 ---
 
@@ -30,6 +30,7 @@ Quick-weather is a professional weather application developed as part of an end-
 - **Nginx**: Web server for serving the application.
 - **HAProxy**: Load balancer to distribute traffic across multiple servers.
 - **Firewall**: Security measure to protect the backend infrastructure.
+- **PostgreSQL**: Relational database for storing user data and weather information.
 
 ## Installation
 
@@ -54,6 +55,7 @@ To run this project locally, follow these steps:
 4. Configure the backend:
    - Ensure Nginx and HAProxy are properly configured on your backend machine.
    - Set up firewall rules to allow necessary traffic.
+   - Install and configure PostgreSQL as the database.
 
 ## Usage
 
@@ -74,8 +76,4 @@ Contributions are welcome! Please follow these steps:
 
 ## Contact
 
-For any inquiries, please contact the project maintainer at nizar.zairat@gmail.com.
-
----
-
-Feel free to copy this into your README file.
+For any inquiries, contact me at nizar.zairat@gmail.com
