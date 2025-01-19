@@ -1,5 +1,3 @@
-Based on the gathered information, here is a more detailed and professional README file for your Quick-weather project, including specifics about the backend, load balancer, firewall, and database:
-
 ---
 
 # Quick-weather
