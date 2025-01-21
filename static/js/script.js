@@ -243,13 +243,3 @@ tabs.forEach(tab => {
         document.getElementById(tab.dataset.tab).classList.add('active');
     });
 });
-
-// Prevent form submission (for demo)
-const forms = document.querySelectorAll('form');
-forms.forEach(form => {
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // Add your form submission logic here
-        alert('Form submitted! (Demo only)');
-    });
-});
