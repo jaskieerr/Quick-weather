@@ -53,10 +53,22 @@
             </div>
         </div>
     
+        <!--nav buttons for switching between randoms and favorites-->
+        <div class="second-navbar">
+            <button class="nav-btns active" id="Randoms" onclick="showRandoms()"> Randoms</button>
+            <button class="nav-btns" id="Favorites" onclick="showFavorites()"> Favorites</button>
+        </div>
+        
+        <!--grid for favorites-->
+        <div class="favorites-grid" id="favs">
+            <!--fovrite cards will be poppulated dynamically-->
+        </div>
+
         <!-- Grid for city cards -->
-        <div class="cities-grid">
+        <div class="cities-grid" id="rands">
             <!-- City cards will be populated dynamically -->
         </div>
+
     </div>
 
     <!-- Moved account content outside of main-content -->

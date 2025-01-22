@@ -59,3 +59,17 @@ window.onclick = function(event) {
         hideDeleteConfirmation();
     }
 }
+
+function showRandoms(){
+    document.getElementById('Randoms').classList.add('active');
+    document.getElementById('Favorites').classList.remove('active')
+    document.getElementById('rands').style.display = 'grid'
+    document.getElementById('favs').style.display = 'none'
+}
+
+function showFavorites(){
+    document.getElementById('Favorites').classList.add('active');
+    document.getElementById('Randoms').classList.remove('active');
+    document.getElementById('favs').style.display = 'grid';
+    document.getElementById('rands').style.display = 'none'
+}
