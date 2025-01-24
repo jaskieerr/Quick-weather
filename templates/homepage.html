@@ -8,6 +8,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}">
 </head>
 <body>
+
+    <!--jinja flash-->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
     <header class="header">
         <div>
             <button class="nav-btn active" id="mainpage-btn" onclick="showMainPage()">Main page</button>
@@ -81,12 +94,12 @@
             <!-- Profile Information Section -->
             <form id="profile-form" onsubmit="saveProfile(event)">
                 <div class="form-group">
-                    <label class="form-label" for="username">Username</label>
-                    <input type="text" id="username" class="form-input" value="JohnDoe" required>
+                    <label class="form-label" for="full_name">Full name</label>
+                    <input type="text" id="username" class="form-input" name="full_name" placeholder="Full name" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="email">Email</label>
-                    <input type="email" id="email" class="form-input" value="john@example.com" required>
+                    <input type="email" id="email" class="form-input" name="email" placeholder="email" required>
                 </div>
                 <button type="submit" class="save-btn">Save Changes</button>
             </form>
@@ -94,18 +107,18 @@
             <!-- Password Change Section -->
             <div class="section-divider">
                 <h3 class="section-title">Change Password</h3>
-                <form id="password-form" onsubmit="changePassword(event)">
+                <form id="password-form" action="{{ url_for('changepw') }}" method="POST">
                     <div class="form-group">
                         <label class="form-label" for="current-password">Current Password</label>
-                        <input type="password" id="current-password" class="form-input" required>
+                        <input type="password" id="current-password" class="form-input" name="current_password" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="new-password">New Password</label>
-                        <input type="password" id="new-password" class="form-input" required>
+                        <input type="password" id="new-password" class="form-input" name="new_password" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="confirm-password">Confirm New Password</label>
-                        <input type="password" id="confirm-password" class="form-input" required>
+                        <input type="password" id="confirm-password" class="form-input" name="confirm_password" required>
                     </div>
                     <button type="submit" class="save-btn">Update Password</button>
                 </form>

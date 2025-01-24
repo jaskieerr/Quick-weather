@@ -243,3 +243,26 @@ tabs.forEach(tab => {
         document.getElementById(tab.dataset.tab).classList.add('active');
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-dismiss flash messages
+    const alerts = document.querySelectorAll('.alert');
+    
+    // Log number of alerts found (helps with debugging)
+    console.log(`Number of alerts found: ${alerts.length}`);
+    
+    alerts.forEach(alert => {
+        // Automatically hide alerts after 5 seconds
+        setTimeout(() => {
+            alert.style.display = 'none';
+        }, 5000);
+    });
+
+    // Add close button functionality to dismiss alerts
+    const closeButtons = document.querySelectorAll('.alert .close');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            this.closest('.alert').style.display = 'none';
+        });
+    });
+});

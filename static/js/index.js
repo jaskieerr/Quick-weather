@@ -18,20 +18,7 @@ function saveProfile(event) {
     alert('Profile changes saved successfully!');
 }
 
-function changePassword(event) {
-    event.preventDefault();
-    const newPassword = document.getElementById('new-password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-    
-    if (newPassword !== confirmPassword) {
-        alert('New passwords do not match!');
-        return;
-    }
-    
-    // Add your password change logic here
-    alert('Password updated successfully!');
-    document.getElementById('password-form').reset();
-}
+//change password here
 
 function showDeleteConfirmation() {
     document.getElementById('delete-modal').style.display = 'block';
@@ -48,8 +35,16 @@ function deleteAccount() {
 }
 
 function logOut() {
-    // Add your logout logic here
-    alert('Logged out successfully!');
+    // Send a request to the logout route
+    fetch('/logout')
+        .then(response => {
+            // Redirect to the main page
+            window.location.href = '/';
+        })
+        .catch(error => {
+            console.error('Logout error:', error);
+            alert('An error occurred during logout');
+        });
 }
 
 // Close modal if clicked outside
@@ -73,3 +68,26 @@ function showFavorites(){
     document.getElementById('favs').style.display = 'grid';
     document.getElementById('rands').style.display = 'none'
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-dismiss flash messages
+    const alerts = document.querySelectorAll('.alert');
+    
+    // Log number of alerts found (helps with debugging)
+    console.log(`Number of alerts found: ${alerts.length}`);
+    
+    alerts.forEach(alert => {
+        // Automatically hide alerts after 5 seconds
+        setTimeout(() => {
+            alert.style.display = 'none';
+        }, 5000);
+    });
+
+    // Add close button functionality to dismiss alerts
+    const closeButtons = document.querySelectorAll('.alert .close');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            this.closest('.alert').style.display = 'none';
+        });
+    });
+});
