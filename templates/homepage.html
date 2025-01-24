@@ -92,7 +92,7 @@
             </div>
             
             <!-- Profile Information Section -->
-            <form id="profile-form" onsubmit="saveProfile(event)">
+            <form id="profile-form" action="{{ url_for('edit_profile') }}" method="POST">
                 <div class="form-group">
                     <label class="form-label" for="full_name">Full name</label>
                     <input type="text" id="username" class="form-input" name="full_name" placeholder="Full name" required>

@@ -107,6 +107,28 @@ def changepw():
     flash('Password successfully changed', 'success')
     return redirect(url_for('homepage'))
 
+#change credentials
+@app.route('/edit_profile', methods=['POST'])
+def edit_profile():
+    if 'email' not in session:
+        flash('Please log in', 'error')
+        return redirect(url_for('index'))
+    
+    user = User.query.filter_by(email=session['email']).first()
+
+    if user:
+        new_fullname = request.form.get('full_name')
+        new_email = request.form.get('email')
+
+        user.fullname = new_fullname
+        user.email = new_email
+        db.session.commit()
+        flash('Changes made successfully', 'success')
+    else:
+        flash('User not found', 'error')
+
+    return redirect(url_for('homepage'))
+
 
 
 if __name__ == '__main__':
