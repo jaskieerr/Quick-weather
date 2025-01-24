@@ -136,10 +136,12 @@
         <div class="modal-content">
             <h3>Delete Account</h3>
             <p>Are you sure you want to delete your account? This action cannot be undone.</p>
-            <div class="modal-buttons">
-                <button class="confirm-btn" onclick="deleteAccount()">Delete</button>
-                <button class="cancel-btn" onclick="hideDeleteConfirmation()">Cancel</button>
-            </div>
+            <form action="{{ url_for('delete_account') }}" method="POST">
+                <div class="modal-buttons">
+                    <button type="submit" class="confirm-btn">Delete</button>
+                    <button type="button" class="cancel-btn" onclick="window.location.href='{{ url_for('index') }}'">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
 

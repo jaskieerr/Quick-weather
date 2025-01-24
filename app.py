@@ -129,7 +129,29 @@ def edit_profile():
 
     return redirect(url_for('homepage'))
 
+@app.route('/delete_account', methods=['POST'])
+def delete_account():
+    if 'email' not in session:
+        flash('Please log in', 'error')
+        return redirect(url_for('index'))
+    
+    # Query user based on email from session
+    user = User.query.filter_by(email=session['email']).first()
 
+    # If the user doesn't exist, flash an error
+    if user is None:
+        flash('No account found', 'error')
+        return redirect(url_for('index'))
+
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        flash('Account deleted successfully')
+    except Exception as e:
+        db.session.rollback()  # Rollback in case of an error
+        flash('An error occurred while deleting the account', 'error')
+    
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     with app.app_context():
